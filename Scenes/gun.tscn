@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://8t4llxvkx6wb"]
+
+[ext_resource type="Texture2D" uid="uid://ia8y4si41r5t" path="res://assets/Diana Raptor 4.png" id="1_nxj5y"]
+[ext_resource type="Script" uid="uid://bdlweqivgjo3u" path="res://Scripts/gun.gd" id="1_oqrbh"]
+
+[node name="Gun" type="Node2D" unique_id=842971978]
+script = ExtResource("1_oqrbh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1654092435]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_nxj5y")
