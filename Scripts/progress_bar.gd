@@ -1,14 +1,15 @@
-extends ProgressBar
-var player = get_parent().get_parent().get_node("Character")
+extends TextureProgressBar
+@onready var player = get_tree().current_scene.get_node_or_null("Character")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if player:
 		print("Progress bar connection successful!")
+		value = player.player_health
+		player.health_changed.connect(_on_player_health_changed)
 	else:
 		print("Progress bar connection unsuccessful!")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if player:
-		value = player.player_health
+func _on_player_health_changed(new_health):
+	value = new_health
+	print("NEW VALUE!", value)

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 40
+var speed = 60
 var target_dir: Vector2
 @onready var player = get_parent().get_node("Character")
 var attack_range = 40
@@ -19,9 +19,14 @@ func _ready() -> void:
 		$Pivot/Sprite2D/Area2D.body_exited.connect(_on_area_2d_body_exited)
 		
 func _physics_process(delta: float) -> void:
-	var vector_to_player = player.position - position
-	var distance_to_player = position.distance_to(player.position)
+	if not is_instance_valid(player):
+		velocity = Vector2.ZERO
+		set_physics_process(false)
+		print("Player is dead.")
+		return
 	if player: 
+		var vector_to_player = player.position - position
+		var distance_to_player = position.distance_to(player.position)
 		if damage_timer > 0:
 			damage_timer -= delta
 		if vector_to_player.x < 0:
@@ -37,7 +42,8 @@ func _physics_process(delta: float) -> void:
 							$AnimationPlayer.play("boss_right")
 						if vector_to_player.x < 0:
 							$AnimationPlayer.play("boss_right")
-						player.player_health -= 15
+						if player.player_health > 0:
+							player.player_health -= 15
 						print("Continuous Damage, player health: ", player.player_health)
 						damage_timer = damage_cooldown
 		if distance_to_player > attack_range:

@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://8t4llxvkx6wb" path="res://Scenes/gun.tscn" id="4_rsvox"]
 [ext_resource type="Script" uid="uid://dfas212td6dut" path="res://Scripts/gun_pivot.gd" id="4_wd77p"]
 [ext_resource type="Script" uid="uid://ch0qxmldic2y1" path="res://Scripts/progress_bar.gd" id="6_ee77d"]
+[ext_resource type="Texture2D" uid="uid://xjf3qqefhc5t" path="res://assets/Player-Health-Bar-Empty.png" id="7_qyb3v"]
+[ext_resource type="Texture2D" uid="uid://bab62jvu73ks" path="res://assets/Player-Health-Bar-Dynamic.png" id="8_plyhf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rsvox"]
 texture = ExtResource("1_7vgut")
@@ -277,8 +279,11 @@ shape = SubResource("RectangleShape2D_c2rpw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1806871825]
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=221301296]
-offset_right = 42.0
-offset_bottom = 27.0
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1545293140]
+offset_right = 285.0
+offset_bottom = 129.0
 value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_qyb3v")
+texture_progress = ExtResource("8_plyhf")
 script = ExtResource("6_ee77d")
