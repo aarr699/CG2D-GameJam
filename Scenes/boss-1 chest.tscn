@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://c23xrjhqq5jnv"]
+
+[ext_resource type="Script" uid="uid://cfshpfcdseh66" path="res://Scripts/boss_1_chest.gd" id="1_pntk6"]
+[ext_resource type="Texture2D" uid="uid://wslmqcrxb27l" path="res://assets/chest_1.png" id="1_tqkd6"]
+[ext_resource type="Texture2D" uid="uid://d3wfyblaa8hyd" path="res://assets/chest_2.png" id="2_pntk6"]
+[ext_resource type="Texture2D" uid="uid://moh1v0p0c5fr" path="res://assets/chest_3.png" id="3_otv3o"]
+[ext_resource type="Texture2D" uid="uid://hf87gjyalnum" path="res://assets/chest_4.png" id="4_2q3ci"]
+[ext_resource type="Texture2D" uid="uid://bjm4im35ynuht" path="res://assets/chest_open_1.png" id="5_khlr1"]
+[ext_resource type="Texture2D" uid="uid://neun3k7r7rss" path="res://assets/chest_open_2.png" id="6_lympf"]
+[ext_resource type="Texture2D" uid="uid://dxd1sm5ke7wqm" path="res://assets/chest_open_3.png" id="7_7dkdl"]
+[ext_resource type="Texture2D" uid="uid://xbiahx6rgmq5" path="res://assets/chest_open_4.png" id="8_j7cfn"]
+[ext_resource type="FontFile" uid="uid://csib47usjuptd" path="res://assets/ModernHeritageDisplay-4neLW.otf" id="10_otv3o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c2rpw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_khlr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lympf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7dkdl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_j7cfn")
+}],
+"loop": 0,
+"name": &"chest_open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tqkd6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pntk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_otv3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2q3ci")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rpw"]
+size = Vector2(31, 22)
+
+[node name="refill_chest" type="Node2D" unique_id=1080144860]
+script = ExtResource("1_pntk6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1048984525]
+sprite_frames = SubResource("SpriteFrames_c2rpw")
+animation = &"chest_open"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2079340217]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=166102556]
+position = Vector2(8, 4)
+shape = SubResource("RectangleShape2D_c2rpw")
+
+[node name="Label" type="Label" parent="Area2D" unique_id=294807781]
+offset_left = -23.0
+offset_top = -51.0
+offset_right = 27.0
+offset_bottom = -28.0
+theme_override_fonts/font = ExtResource("10_otv3o")
+text = "Press 'E'"
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

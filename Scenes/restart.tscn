@@ -1,3 +1,76 @@
 [gd_scene format=3 uid="uid://d0bi2340pe770"]
 
-[node name="Node2D" type="Node2D" unique_id=851700687]
+[ext_resource type="FontFile" uid="uid://csib47usjuptd" path="res://assets/ModernHeritageDisplay-4neLW.otf" id="1_7g6v7"]
+[ext_resource type="Texture2D" uid="uid://b52yo51pj2dye" path="res://assets/button.png" id="1_fu03a"]
+[ext_resource type="Script" uid="uid://cyuxkidu6aw8s" path="res://Scripts/retry.gd" id="3_ttvwi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttvwi"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12nsu"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g6v7"]
+bg_color = Color(0, 0, 0, 0)
+
+[node name="Restart" type="Control" unique_id=1502974197]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=894972093]
+position = Vector2(963.5, 570.5)
+scale = Vector2(5.715, 9.406251)
+texture = ExtResource("1_fu03a")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=758100108]
+position = Vector2(955, 864.5)
+scale = Vector2(5.715, 9.59375)
+texture = ExtResource("1_fu03a")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=406296106]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 365.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1695603189]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Retry" type="Button" parent="MarginContainer/VBoxContainer" unique_id=228330352]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(0.6104971, 0.24295092, 0.55885035, 1)
+theme_override_fonts/font = ExtResource("1_7g6v7")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ttvwi")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_12nsu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7g6v7")
+text = "Retry"
+script = ExtResource("3_ttvwi")
+
+[node name="Main" type="Button" parent="MarginContainer/VBoxContainer" unique_id=111658374]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(0.6104971, 0.24295092, 0.55885035, 1)
+theme_override_fonts/font = ExtResource("1_7g6v7")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ttvwi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7g6v7")
+text = "Main Menu"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Retry" to="MarginContainer/VBoxContainer/Retry" method="_on_pressed"]

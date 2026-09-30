@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://5y2gykf4udpv" path="res://assets/explosion.png" id="1_g62mh"]
 [ext_resource type="Script" uid="uid://61gjl4jp7rco" path="res://Scripts/death_animation.gd" id="2_mna5k"]
+[ext_resource type="AudioStream" uid="uid://cm1n0m6mls2jv" path="res://assets/explosion.mp3" id="3_rsl6c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mna5k"]
 atlas = ExtResource("1_g62mh")
@@ -103,5 +104,8 @@ animation = &"new_animation"
 frame = 11
 frame_progress = 1.0
 script = ExtResource("2_mna5k")
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="AnimatedSprite2D" unique_id=1602566390]
+stream = ExtResource("3_rsl6c")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_finished"]

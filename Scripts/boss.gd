@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+signal boss_health_changed(boss_new_health)
 var speed = 60
 var target_dir: Vector2
 @onready var player = get_parent().get_node("Character")
@@ -8,7 +8,20 @@ var attack_range = 40
 var player_inside_box: bool = false
 var damage_cooldown: float = 1.0
 var damage_timer: float = 0.0
-var health = 100
+var is_dead = false
+var boss_health = 100:
+	set(val):
+		if val == null:
+			return
+		boss_health = val
+		boss_health_changed.emit(val)
+		if boss_health <= 0 and not is_dead:
+			is_dead = true
+			velocity = Vector2.ZERO
+			set_physics_process(false)
+			$AnimationPlayer.play("death")
+			await get_tree().create_timer(3.4).timeout
+			queue_free()
 
 func _ready() -> void:
 	print("Boss Script Initialized")
@@ -43,7 +56,7 @@ func _physics_process(delta: float) -> void:
 						if vector_to_player.x < 0:
 							$AnimationPlayer.play("boss_right")
 						if player.player_health > 0:
-							player.player_health -= 15
+							player.player_health -= 12.5
 						print("Continuous Damage, player health: ", player.player_health)
 						damage_timer = damage_cooldown
 		if distance_to_player > attack_range:

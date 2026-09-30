@@ -336,9 +336,9 @@ shape = SubResource("CapsuleShape2D_c2rpw")
 [node name="Pivot" type="Node2D" parent="." unique_id=1651540798]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=1835359675]
-texture = ExtResource("1_wwfse")
-hframes = 6
-vframes = 3
+texture = ExtResource("2_cxrok")
+hframes = 10
+vframes = 2
 
 [node name="Area2D" type="Area2D" parent="Pivot/Sprite2D" unique_id=1789117159]
 

@@ -2,6 +2,7 @@ extends CharacterBody2D
 var is_dead: bool = false
 signal health_changed(new_health)
 const death = preload("res://Scenes/death.tscn")
+@onready var ammo_label = $CanvasLayer3/Label
 @export var speed = 100
 @export var player_health = 100:
 	set(val):
@@ -11,13 +12,23 @@ const death = preload("res://Scenes/death.tscn")
 		health_changed.emit(val)
 		if player_health <= 0 and not is_dead:
 			die()
-
-
+@export var ammo = 5:
+	set(val):
+		ammo = val
+		if is_node_ready():
+			if ammo >= 0:
+				ammo_label.text = "Ammo: " + str(ammo)
+			else:
+				ammo_label.text = "Ammo: 0"
+@onready var boss = get_parent().get_node("Boss")
+func _ready() -> void:
+	ammo_label.text = "Ammo: " + str(ammo)
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction * speed
 	move_and_slide()
+	$Pivot.look_at(get_global_mouse_position())
 	if velocity.x > 0:
 		$AnimatedSprite2D.play("Right")
 		$AnimatedSprite2D.flip_h = false
@@ -30,6 +41,9 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("Down")
 	if velocity.x == 0 and velocity.y == 0:
 		$AnimatedSprite2D.play("Idle")
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
+
 func die() -> void:
 	is_dead = true
 	set_physics_process(false)
@@ -44,3 +58,20 @@ func die() -> void:
 	get_parent().add_child(death_animation)
 	death_animation.global_position = exp_spawn
 	queue_free()
+
+func shoot():
+	ammo -= 1
+	print("ammo: ", ammo)
+	if $Pivot/Gun/RayCast2D.is_colliding():
+		var collider = $Pivot/Gun/RayCast2D.get_collider()
+		print("Colliding with: ", collider.name)
+		if ammo > 0:
+			$BulletNoise.play()
+		if collider.is_in_group("Boss"):
+			if ammo > 0:
+				boss.boss_health -= 10
+				print("Boss health decreased by 10!")
+			else:
+				print("ammo khatam")
+		else:
+			print("Bullet Missed!")
