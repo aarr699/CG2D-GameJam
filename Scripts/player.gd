@@ -1,9 +1,16 @@
 extends CharacterBody2D
+const Bullet = preload("res://Scenes/bullet.tscn")
+@onready var muzzle: Marker2D = $Muzzle
 var is_dead: bool = false
 signal health_changed(new_health)
 const death = preload("res://Scenes/death.tscn")
 @onready var ammo_label = $CanvasLayer3/Label
 @export var speed = 100
+var boss_key: int:
+	set(val):
+		boss_key = val
+		if val == 1:
+			$CanvasLayer/Label.text = "Boss-Key Acquired!"
 @export var player_health = 100:
 	set(val):
 		if val == null:
@@ -29,6 +36,7 @@ func _physics_process(delta):
 	velocity = direction * speed
 	move_and_slide()
 	$Pivot.look_at(get_global_mouse_position())
+	$Muzzle.look_at(get_global_mouse_position())
 	if velocity.x > 0:
 		$AnimatedSprite2D.play("Right")
 		$AnimatedSprite2D.flip_h = false
@@ -61,17 +69,21 @@ func die() -> void:
 
 func shoot():
 	ammo -= 1
+	if ammo > 0:
+		$BulletNoise.play()
+		var new_bullet = Bullet.instantiate()
+		new_bullet.global_transform = muzzle.global_transform
+		get_tree().root.add_child(new_bullet)
 	print("ammo: ", ammo)
 	if $Pivot/Gun/RayCast2D.is_colliding():
 		var collider = $Pivot/Gun/RayCast2D.get_collider()
 		print("Colliding with: ", collider.name)
-		if ammo > 0:
-			$BulletNoise.play()
 		if collider.is_in_group("Boss"):
 			if ammo > 0:
-				boss.boss_health -= 10
+				boss.boss_health -= 100
 				print("Boss health decreased by 10!")
 			else:
 				print("ammo khatam")
 		else:
 			print("Bullet Missed!")
+	

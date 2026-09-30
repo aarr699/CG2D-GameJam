@@ -1,5 +1,6 @@
 extends CharacterBody2D
 signal boss_health_changed(boss_new_health)
+const boss_key = preload("res://Scenes/boss-1-key.tscn")
 var speed = 60
 var target_dir: Vector2
 @onready var player = get_parent().get_node("Character")
@@ -20,7 +21,16 @@ var boss_health = 100:
 			velocity = Vector2.ZERO
 			set_physics_process(false)
 			$AnimationPlayer.play("death")
+			print("death started")
 			await get_tree().create_timer(3.4).timeout
+			print("death finished")
+			if not is_instance_valid(get_parent()):
+				print("Not Valid")
+				return
+			var new_key = boss_key.instantiate()
+			var spawn_pos = global_position
+			get_parent().add_child(new_key)
+			new_key.global_position = spawn_pos
 			queue_free()
 
 func _ready() -> void:
@@ -30,7 +40,7 @@ func _ready() -> void:
 		$Pivot/Sprite2D/Area2D.body_entered.connect(_on_area_2d_body_entered)
 		print("Success: Area 2D connected through Sprite2D node path!")
 		$Pivot/Sprite2D/Area2D.body_exited.connect(_on_area_2d_body_exited)
-		
+
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player):
 		velocity = Vector2.ZERO
