@@ -69,7 +69,7 @@ func die() -> void:
 
 func shoot():
 	ammo -= 1
-	if ammo > 0:
+	if ammo >= 0:
 		$BulletNoise.play()
 		var new_bullet = Bullet.instantiate()
 		new_bullet.global_transform = muzzle.global_transform
@@ -80,7 +80,7 @@ func shoot():
 		print("Colliding with: ", collider.name)
 		if collider.is_in_group("Boss"):
 			if ammo > 0:
-				boss.boss_health -= 100
+				boss.boss_health -= 10
 				print("Boss health decreased by 10!")
 			else:
 				print("ammo khatam")
