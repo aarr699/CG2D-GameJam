@@ -21,6 +21,7 @@ var boss_health = 100:
 			velocity = Vector2.ZERO
 			set_physics_process(false)
 			$AnimationPlayer.play("death")
+			$AudioStreamPlayer2D.play()
 			print("death started")
 			await get_tree().create_timer(3.4).timeout
 			print("death finished")
@@ -63,8 +64,10 @@ func _physics_process(delta: float) -> void:
 						velocity = Vector2.ZERO
 						if vector_to_player.x > 0:
 							$AnimationPlayer.play("boss_right")
+							$AudioStreamPlayer2D2.play()
 						if vector_to_player.x < 0:
 							$AnimationPlayer.play("boss_right")
+							$AudioStreamPlayer2D2.play()
 						if player.player_health > 0:
 							player.player_health -= 12.5
 						print("Continuous Damage, player health: ", player.player_health)

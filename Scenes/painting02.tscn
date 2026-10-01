@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cagarrhjageum"]
+
+[ext_resource type="Script" uid="uid://br0ypj51857ya" path="res://Scripts/paintings.gd" id="1_bncu7"]
+[ext_resource type="Texture2D" uid="uid://b4pv43k57heee" path="res://assets/Painting 2 - Copy.png" id="1_ndsyu"]
+[ext_resource type="FontFile" uid="uid://csib47usjuptd" path="res://assets/ModernHeritageDisplay-4neLW.otf" id="3_efawe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rpw"]
+size = Vector2(16, 29)
+
+[node name="Area2D" type="Area2D" unique_id=207051310]
+script = ExtResource("1_bncu7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1858629391]
+texture = ExtResource("1_ndsyu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=240328289]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_c2rpw")
+
+[node name="Label" type="Label" parent="." unique_id=1045936044]
+offset_left = -87.0
+offset_top = -43.0
+offset_right = 233.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("3_efawe")
+theme_override_font_sizes/font_size = 32
+text = "ABCDEF TEXT"

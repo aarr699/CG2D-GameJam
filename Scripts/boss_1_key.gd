@@ -1,7 +1,7 @@
 extends Area2D
 var used:bool = false
 @onready var player = get_parent().get_node("Character")
-
+@onready var boss = get_parent().get_node("Boss")
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("open_chest") and not used:
 		print("open_chest!")

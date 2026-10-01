@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://cxc61hoeao674" path="res://Scenes/player.tscn" id="2_7vgut"]
 [ext_resource type="PackedScene" uid="uid://8t4llxvkx6wb" path="res://Scenes/gun.tscn" id="4_rsvox"]
 [ext_resource type="Script" uid="uid://dfas212td6dut" path="res://Scripts/gun_pivot.gd" id="4_wd77p"]
+[ext_resource type="AudioStream" uid="uid://cwue3ax1lku0d" path="res://assets/monster_death.mp3" id="5_v70hm"]
+[ext_resource type="AudioStream" uid="uid://cprjg18dd8f0u" path="res://assets/sword_slash.mp3" id="6_d80e7"]
 [ext_resource type="Script" uid="uid://ch0qxmldic2y1" path="res://Scripts/progress_bar.gd" id="6_ee77d"]
 [ext_resource type="Texture2D" uid="uid://6qmpsx6wfi6c" path="res://assets/9d2df9416c6d6c3f61c461e1423462cf.jpg" id="6_plyhf"]
 [ext_resource type="Texture2D" uid="uid://xjf3qqefhc5t" path="res://assets/Player-Health-Bar-Empty.png" id="7_qyb3v"]
@@ -16,6 +18,8 @@
 [ext_resource type="Script" uid="uid://d3sqspktosi0p" path="res://Scripts/boss_health_bar.gd" id="13_eudb7"]
 [ext_resource type="AudioStream" uid="uid://t6cycohwwc74" path="res://assets/bullet_shot.mp3" id="15_ehre0"]
 [ext_resource type="PackedScene" uid="uid://cjwihew3ki11q" path="res://Scenes/boss-1-arena-door.tscn" id="16_3wq2j"]
+[ext_resource type="AudioStream" uid="uid://mil4mx74x0qq" path="res://assets/boss_battle_audio.mp3" id="19_4hsr0"]
+[ext_resource type="PackedScene" uid="uid://cxxafa1iy84na" path="res://Scenes/painting-1.tscn" id="20_iavb4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rsvox"]
 texture = ExtResource("1_7vgut")
@@ -265,11 +269,20 @@ tile_set = SubResource("TileSet_27ox7")
 [node name="Area2D" parent="." unique_id=1008186226 instance=ExtResource("16_3wq2j")]
 position = Vector2(252, -88)
 
-[node name="door_collision" type="CollisionShape2D" parent="Area2D" unique_id=955663924]
+[node name="StaticBody2D" type="StaticBody2D" parent="Area2D" unique_id=1129268524]
+
+[node name="door_collision" type="CollisionShape2D" parent="Area2D/StaticBody2D" unique_id=955663924]
 shape = SubResource("RectangleShape2D_pdq4g")
 
 [node name="Boss" parent="." unique_id=1438163048 groups=["Boss"] instance=ExtResource("1_72ou4")]
 position = Vector2(-153, -4)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Boss" unique_id=372382258]
+stream = ExtResource("5_v70hm")
+volume_db = 23.146
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Boss" unique_id=31251001]
+stream = ExtResource("6_d80e7")
 
 [node name="Character" parent="." unique_id=737505256 instance=ExtResource("2_7vgut")]
 position = Vector2(143, 20)
@@ -345,7 +358,6 @@ position = Vector2(2, -88.5)
 shape = SubResource("RectangleShape2D_uwhgu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1806871825]
-visible = false
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1545293140]
 offset_right = 285.0
@@ -357,7 +369,6 @@ texture_progress = ExtResource("8_plyhf")
 script = ExtResource("6_ee77d")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=265117449]
-visible = false
 color = Color(0.34407577, 0.34407574, 0.34407574, 1)
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=1100622980]
@@ -377,3 +388,10 @@ nine_patch_stretch = true
 texture_under = ExtResource("11_bpjod")
 texture_progress = ExtResource("12_eudb7")
 script = ExtResource("13_eudb7")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=803515364]
+stream = ExtResource("19_4hsr0")
+autoplay = true
+
+[node name="Area2D2" parent="." unique_id=1669354648 instance=ExtResource("20_iavb4")]
+position = Vector2(-1, -88)

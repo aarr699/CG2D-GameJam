@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cxxafa1iy84na"]
+
+[ext_resource type="Script" uid="uid://br0ypj51857ya" path="res://Scripts/paintings.gd" id="1_k01i3"]
+[ext_resource type="Texture2D" uid="uid://xy3dbhfhugkp" path="res://assets/Painting-1.png" id="1_nmud0"]
+[ext_resource type="FontFile" uid="uid://csib47usjuptd" path="res://assets/ModernHeritageDisplay-4neLW.otf" id="3_6gt23"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2rpw"]
+size = Vector2(16, 28)
+
+[node name="Area2D" type="Area2D" unique_id=1669354648]
+script = ExtResource("1_k01i3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1137305103]
+texture = ExtResource("1_nmud0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1805086109]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_c2rpw")
+
+[node name="Label" type="Label" parent="." unique_id=470198266]
+anchors_preset = -1
+anchor_right = 0.025
+offset_left = -84.0
+offset_top = -46.0
+offset_right = 236.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("3_6gt23")
+theme_override_font_sizes/font_size = 32
+text = "ABCDEF TEXT"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
